@@ -16,3 +16,9 @@ iwr -URI <URL> -o <ダウンロード先のパスと保存名>
 ```powershell
 iex (New-Object Net.WebClient).DownloadString('<URL>')
 ```
+
+## PSReadLineによる履歴ファイルの生成
+PowerShellの標準機能であるPSReadLineモジュールによって行われる。  
+PowerShellセッションが終了する際、または一定のタイミングで、メモリ上の履歴リスト全体がファイル（ConsoleHost_history.txt）に自動的に書き込まれる。  
+生成されるパス  
+`C:\Users\<ユーザー名>\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
