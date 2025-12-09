@@ -42,3 +42,5 @@ EOF
 export PATH=<書き換えたいパス>
 ```
 
+## ssh関連
+
