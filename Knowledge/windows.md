@@ -59,3 +59,13 @@ Active Directory Domain Servicesを実行しているっサーバーであり、
 `C:\Users\<ユーザー名>\.ssh\`  
 公開鍵登録パス  
 `C:\Users\<ユーザー名>\.ssh\authorized_keys`
+
+## 特権
+```bash
+SeBackupPrivilege # 通常Backup Operatorsグループのメンバーやシステムアカウントに付与される特権。Windowsの通常ACLを無視してアクセスできる。
+```
+
+## グループ
+```bash
+Server Operators # Windows ServerやActive Directory環境において、サーバーの運用管理に関する一定の権限を持つ、組み込みの特殊なセキュリティグループ。サービスを利用して権限昇格の可能性あり。
+```
